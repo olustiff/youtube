@@ -1,0 +1,10 @@
+# Uygulama kaynak kodu bilerek depoya GÖNDERİLMİYOR.
+# Depo yalnızca güncelleme APK'larını (Releases) barındırmak için herkese açık;
+# kodun burada olması onu da herkese açardı.
+app/
+
+# Yerel araç/derleme çıktıları
+.dart_tool/
+build/
+*.apk
+.DS_Store
