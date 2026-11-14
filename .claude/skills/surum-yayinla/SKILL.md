@@ -5,7 +5,10 @@ description: oLusTifF uygulamasının yeni sürümünü GitHub Releases'e yayın
 
 # Sürüm yayınlama
 
-Depo: `olustiff/youtube` (herkese açık, yalnızca sürümler; kaynak kod yüklü DEĞİL).
+Depo: `olustiff/olustiff-tube` (herkese açık; kod VE sürümler burada, 13 Kas 2026'dan beri).
+GEÇİŞ: `tool/publish_release.sh` aynı sürümü eski `olustiff/youtube` deposuna da
+yayınlıyor (`DEPOLAR`), çünkü eski kurulumlar güncellemeyi orada arıyor. Elle
+yükleme yaparsan İKİ depoya da yap.
 
 ## Neden birden fazla APK
 
@@ -23,7 +26,7 @@ mimarisini tanıyıp uyanı indiriyor (`lib/core/update/update_service.dart` →
 x86_64 yayınlanmıyor: yalnızca emülatörlerde kullanılıyor, ortak dosya onu da taşıyor.
 
 **Dosya adları sürümden sürüme DEĞİŞMEMELİ.** Sabit indirme linki buna dayanıyor:
-`https://github.com/olustiff/youtube/releases/latest/download/olustiff.apk`
+`https://github.com/olustiff/olustiff-tube/releases/latest/download/olustiff.apk`
 
 ## Sürüm numarası
 
@@ -56,13 +59,13 @@ Yükleme yarıda kalırsa release açık kalır ve dosya eksik olur — yeniden
 yayınlamak yerine **eksik dosyayı tek başına yükle**:
 
 ```bash
-RID=$(gh release view v<sürüm> --repo olustiff/youtube --json databaseId --jq .databaseId)
+RID=$(gh release view v<sürüm> --repo olustiff/olustiff-tube --json databaseId --jq .databaseId)
 TOKEN=$(gh auth token)
 curl --progress-bar -o /dev/null -w 'HTTP:%{http_code}\n' --max-time 1800 \
   -X POST -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/vnd.android.package-archive" \
   --data-binary @<dosya> \
-  "https://uploads.github.com/repos/olustiff/youtube/releases/$RID/assets?name=<ad>.apk"
+  "https://uploads.github.com/repos/olustiff/olustiff-tube/releases/$RID/assets?name=<ad>.apk"
 ```
 
 ## Doğrulama
@@ -70,10 +73,10 @@ curl --progress-bar -o /dev/null -w 'HTTP:%{http_code}\n' --max-time 1800 \
 Yayın bitince uygulamanın göreceği şeyi kontrol et:
 
 ```bash
-gh release view v<sürüm> --repo olustiff/youtube --json assets \
+gh release view v<sürüm> --repo olustiff/olustiff-tube --json assets \
   --jq '.assets[] | "\(.name)  \(.size/1048576|floor)MB  \(.state)"'
 
-curl -sIL "https://github.com/olustiff/youtube/releases/latest/download/olustiff.apk" \
+curl -sIL "https://github.com/olustiff/olustiff-tube/releases/latest/download/olustiff.apk" \
   | grep -iE "^HTTP/|^content-length" | tail -2
 ```
 
